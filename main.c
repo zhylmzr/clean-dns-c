@@ -78,8 +78,9 @@ int xdp_clean_dns(struct xdp_md *ctx) {
 
     __u16 h_proto = eth->h_proto;
 
+    // 跳过 IPV6 包
     if (h_proto == htons(ETH_P_IPV6)) {
-        return XDP_DROP;
+        goto pass;
     }
 
     // 打印以太帧头信息
